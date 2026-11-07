@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Becky Sikasa</title>
+<meta name="description" content="Becky Sikasa — Glasgow-based singer-songwriter. New single 'Sky Is Close' out now.">
+<meta property="og:title" content="Becky Sikasa">
+<meta property="og:description" content="New single 'Sky Is Close' out now.">
+<meta property="og:image" content="artwork.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#4180B6; --light:#B0CFEC; --navy:#072846;
+    --paper:#EFE6D6; --black:#050608;
+    --serif:"EB Garamond", Garamond, "Times New Roman", serif;
+    --gutter:clamp(22px,6vw,110px);
+    --x:50%; --y:55%; --r:0px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{font-family:var(--serif);font-size:20px;line-height:1.55;color:var(--paper);background:var(--black);-webkit-font-smoothing:antialiased}
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.16;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  a{color:inherit;text-decoration:none}
+  a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+  i{font-style:italic}
+
+  /* ---------- the dark ---------- */
+  .dark{
+    position:relative;height:100svh;overflow:hidden;background:var(--black);color:var(--paper);
+    cursor:none;touch-action:none;user-select:none;
+  }
+  .dark .img{position:absolute;inset:0;background:url("artwork.jpg") center/cover no-repeat}
+  .dark .img.dim{opacity:.07}
+  .dark .img.lit{
+    -webkit-mask-image:radial-gradient(circle var(--r) at var(--x) var(--y), #000 0%, #000 35%, transparent 100%);
+            mask-image:radial-gradient(circle var(--r) at var(--x) var(--y), #000 0%, #000 35%, transparent 100%);
+    transition:--r .6s ease;
+  }
+  .dark .name{
+    position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(36px,6vw,80px);
+    font-size:clamp(64px,14vw,220px);line-height:.84;letter-spacing:-.03em;font-style:italic;font-weight:700;
+    color:var(--paper);mix-blend-mode:difference;pointer-events:none;
+  }
+  .dark .name span{display:block}
+  .dark .hint{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    font-style:italic;font-size:clamp(18px,2vw,24px);opacity:.55;pointer-events:none;text-align:center;
+    transition:opacity .8s;
+  }
+  .dark.touched .hint{opacity:0}
+  .dark .ring{
+    position:absolute;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--paper);
+    left:var(--x);top:var(--y);transform:translate(-50%,-50%);pointer-events:none;opacity:0;mix-blend-mode:difference;
+  }
+  .dark.touched .ring{opacity:.9}
+  @media(hover:none){.dark{cursor:auto}.dark .ring{display:none}}
+  .dark .ctas{position:absolute;top:22px;right:var(--gutter);z-index:3;display:flex;gap:10px}
+  .dark .cta{
+    font-style:italic;font-size:17px;padding:10px 20px;border:1.5px solid rgba(239,230,214,.6);border-radius:999px;cursor:pointer;
+  }
+  .dark .cta:hover{background:var(--paper);color:var(--black)}
+  .dark .brand{position:absolute;top:30px;left:var(--gutter);z-index:3;font-style:italic;font-size:19px;font-weight:600}
+
+  /* ---------- the index ---------- */
+  .index{background:var(--black);color:var(--paper);padding:clamp(40px,6vw,80px) 0 0}
+  .index .wrap{max-width:1400px;margin:0 auto;padding:0 var(--gutter)}
+  details{border-top:1px solid rgba(239,230,214,.22)}
+  details:last-of-type{border-bottom:1px solid rgba(239,230,214,.22)}
+  summary{
+    list-style:none;cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+    padding:clamp(18px,2.5vw,34px) 0;
+    font-size:clamp(56px,11vw,180px);line-height:.9;font-style:italic;font-weight:700;letter-spacing:-.025em;
+    color:var(--black);text-shadow:1px 1px 0 rgba(239,230,214,.22),-1px -1px 0 rgba(0,0,0,.9);
+    transition:color .3s,text-shadow .3s;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary:hover, details[open] summary{color:var(--paper);text-shadow:none}
+  summary small{font-size:clamp(16px,1.6vw,22px);font-weight:400;font-style:italic;color:var(--paper);opacity:.6;text-shadow:none;white-space:nowrap}
+  .body{padding:0 0 clamp(40px,5vw,72px);max-width:1100px}
+  @media(prefers-reduced-motion:no-preference){
+    details[open] .body{animation:open .5s cubic-bezier(.2,.7,.2,1) both}
+    @keyframes open{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+  }
+
+  .btn{display:inline-flex;align-items:center;font-size:18px;font-weight:500;font-style:italic;padding:12px 24px;border:1.5px solid currentColor;border-radius:999px;transition:background .2s,color .2s}
+  .btn:hover{background:var(--paper);color:var(--black);border-color:var(--paper)}
+  .btns{display:flex;gap:12px;flex-wrap:wrap}
+
+  /* music body */
+  .music{display:grid;grid-template-columns:minmax(0,360px) 1fr;gap:clamp(28px,5vw,72px);align-items:end}
+  @media(max-width:760px){.music{grid-template-columns:1fr}}
+  .music img{width:100%;aspect-ratio:1;object-fit:cover;box-shadow:0 30px 60px -30px rgba(0,0,0,.9)}
+  .music h3{font-size:clamp(32px,4vw,54px);font-style:italic;font-weight:600;line-height:1;margin-bottom:6px}
+  .music .out{opacity:.7;margin-bottom:24px}
+  .records{list-style:none;margin-top:40px;border-top:1px solid rgba(239,230,214,.22)}
+  .records li{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid rgba(239,230,214,.22);font-style:italic;font-size:clamp(19px,2vw,24px)}
+  .records li span:last-child{font-style:normal;opacity:.65;font-size:17px;text-align:right}
+
+  /* about body */
+  .about{display:grid;grid-template-columns:1fr minmax(0,380px);gap:clamp(28px,5vw,72px);align-items:start}
+  @media(max-width:860px){.about{grid-template-columns:1fr}}
+  .about p{font-size:clamp(19px,1.8vw,23px);line-height:1.5;max-width:46ch;margin-bottom:1em}
+  .about .quote{font-size:clamp(24px,2.4vw,32px);line-height:1.22;font-style:italic;max-width:28ch;margin:24px 0 32px}
+  .about .quote cite{display:block;font-style:normal;font-size:17px;opacity:.7;margin-top:10px}
+  .about img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:62% center;filter:saturate(.85) sepia(.15) brightness(.95)}
+
+  /* live body */
+  .dates{list-style:none;border-top:1px solid rgba(239,230,214,.22)}
+  .dates li{display:grid;grid-template-columns:140px 1fr auto;gap:20px;align-items:center;padding:20px 0;border-bottom:1px solid rgba(239,230,214,.22)}
+  @media(max-width:640px){.dates li{grid-template-columns:1fr;gap:6px}}
+  .dates .d{opacity:.75}
+  .dates .v{font-size:clamp(24px,2.6vw,34px);font-style:italic;line-height:1.05}
+  .dates .v span{display:block;font-size:17px;font-style:normal;opacity:.7;margin-top:3px}
+  .dates .soldout{opacity:.5;font-style:italic}
+
+  /* letters body */
+  .letters p{font-style:italic;font-size:clamp(20px,2vw,24px);margin-bottom:22px}
+  .letters form{display:flex;max-width:520px;border:1.5px solid var(--paper);border-radius:999px;overflow:hidden}
+  .letters input{flex:1;min-width:0;font:inherit;font-style:italic;font-size:19px;padding:14px 22px;background:transparent;border:0;color:var(--paper);outline:none}
+  .letters input::placeholder{color:rgba(239,230,214,.45)}
+  .letters button{font:inherit;font-style:italic;font-weight:500;font-size:18px;padding:14px 26px;background:var(--paper);color:var(--black);border:0;cursor:pointer}
+  .letters .thanks{display:none;font-size:24px;font-style:italic}
+
+  footer{background:var(--black);color:var(--paper);padding:48px var(--gutter) 44px;border-top:1px solid rgba(239,230,214,.12)}
+  footer .row{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;align-items:flex-end}
+  footer ul{display:flex;gap:24px;list-style:none;flex-wrap:wrap;font-size:18px;font-style:italic}
+  footer ul a{border-bottom:1px solid transparent}
+  footer ul a:hover{border-color:currentColor}
+  footer .fine{font-size:15px;opacity:.65;line-height:1.5}
+</style>
+</head>
+<body>
+
+<section class="dark" id="dark">
+  <a class="brand" href="#top">Becky Sikasa</a>
+  <div class="ctas">
+    <a class="cta" href="https://beckys.lnk.to/skyisclose">Listen</a>
+    <a class="cta" href="#live">Live</a>
+  </div>
+  <div class="img dim" aria-hidden="true"></div>
+  <div class="img lit" role="img" aria-label="Sky Is Close artwork"></div>
+  <div class="hint">move to find the light</div>
+  <div class="ring" aria-hidden="true"></div>
+  <h1 class="name"><span>Becky</span><span>Sikasa</span></h1>
+</section>
+
+<main class="index" id="top">
+  <div class="wrap">
+
+    <details open id="music">
+      <summary>Music <small>Sky Is Close, out now</small></summary>
+      <div class="body music">
+        <img src="artwork.jpg" alt="Sky Is Close artwork">
+        <div>
+          <h3>Sky Is Close</h3>
+          <div class="out">New single · Distiller Records</div>
+          <div class="btns">
+            <a class="btn" href="https://beckys.lnk.to/skyisclose">Stream</a>
+            <a class="btn" href="https://youtu.be/OCZmGiJyq0I">Watch</a>
+          </div>
+          <ul class="records">
+            <li><span>Sky Is Close</span><span>Single, 2026</span></li>
+            <li><span>The Writings and the Pictures and the Song</span><span>EP, 2024</span></li>
+            <li><span>Twelve Wooden Boxes</span><span>EP, 2022</span></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <details id="about">
+      <summary>About <small>Glasgow, via Cologne</small></summary>
+      <div class="body about">
+        <div>
+          <p>Becky Sikasa is a Glasgow-based, German singer-songwriter, producer and multi-instrumentalist. Her music brings together Kenyan, Swiss and German roots and a Glasgow home: rich, introspective songs that sit between neo-soul, alternative R&amp;B and indie-pop.</p>
+          <p>Both of her EPs were shortlisted for the Scottish Album of the Year Award. She was named BBC Introducing Scottish Artist of the Year 2025, has toured with Nile Rodgers, and has shared stages with Sam Smith, Joy Crookes, corto.alto and The Crane Wives. BBC Introducing in Scotland has played every track she has released since 2022, with regular support from BBC Radio 1 and 1Xtra.</p>
+          <p>Annie Lennox personally invited her to play the main stage at Wilderness Festival, and has championed her ever since.</p>
+          <blockquote class="quote">&ldquo;She&rsquo;s phenomenal. With a voice like that, with a songwriting capacity like that, this is a real artist.&rdquo;<cite>Annie Lennox</cite></blockquote>
+          <div class="btns"><a class="btn" href="https://drive.google.com/drive/folders/1reiI4MJJ3e86O9XnI_Rve-txaS6Ky0FH">Press pack</a></div>
+        </div>
+        <img src="press.jpg" alt="Becky Sikasa">
+      </div>
+    </details>
+
+    <details id="live">
+      <summary>Live <small>Scotland, then Cologne</small></summary>
+      <div class="body">
+        <ul class="dates">
+          <li><span class="d">Sat 7 Nov</span><span class="v">Letham Village Hall<span>Letham Nights, Fife</span></span><span class="soldout">Sold out</span></li>
+          <li><span class="d">Mon 9 Nov</span><span class="v">The Tunnels<span>Aberdeen</span></span><a class="btn" href="https://www.seetickets.com/event/becky-sikasa/the-tunnels/3612073">Tickets</a></li>
+          <li><span class="d">Tue 10 Nov</span><span class="v">The Caves<span>Edinburgh</span></span><a class="btn" href="https://432p.seetickets.com/event/becky-sikasa/the-caves/3612113">Tickets</a></li>
+          <li><span class="d">Thu 12 Nov</span><span class="v">The Rum Shack<span>Glasgow</span></span><a class="btn" href="https://www.seetickets.com/event/becky-sikasa/the-rum-shack/3635397">Tickets</a></li>
+          <li><span class="d">Tue 8 Dec</span><span class="v">Kulturkirche<span>Cologne, Germany</span></span><a class="btn" href="#">Tickets</a></li>
+        </ul>
+      </div>
+    </details>
+
+    <details id="shop">
+      <summary>Shop <small>opening soon</small></summary>
+      <div class="body">
+        <p style="font-style:italic;font-size:clamp(20px,2vw,24px)">Something small and well made. Join the letters to hear first.</p>
+        <!-- SHOP GRID: drop in when products are live -->
+      </div>
+    </details>
+
+    <details id="letters">
+      <summary>Letters <small>now and then</small></summary>
+      <div class="body letters">
+        <p>Notes from Becky about new songs and shows.</p>
+        <!-- Swap for the Openstage / Mailchimp embed when ready -->
+        <form id="f">
+          <input type="email" required placeholder="Your email" aria-label="Email address">
+          <button type="submit">Join</button>
+        </form>
+        <div class="thanks" id="thanks">Thank you. Talk soon.</div>
+      </div>
+    </details>
+
+  </div>
+</main>
+
+<footer>
+  <div class="row">
+    <ul>
+      <li><a href="https://www.instagram.com/beckysikasa/">Instagram</a></li>
+      <li><a href="https://www.tiktok.com/@beckysikasa">TikTok</a></li>
+      <li><a href="https://open.spotify.com/artist/3UqXMAMPI53itEWm6SMaBZ">Spotify</a></li>
+      <li><a href="https://youtu.be/OCZmGiJyq0I">YouTube</a></li>
+    </ul>
+    <div class="fine">© 2026 Becky Sikasa</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var d=document.getElementById('dark');
+  var r=document.documentElement.style;
+  function light(x,y){
+    var b=d.getBoundingClientRect();
+    r.setProperty('--x',(x-b.left)+'px');
+    r.setProperty('--y',(y-b.top)+'px');
+    r.setProperty('--r',Math.max(220,Math.min(window.innerWidth,window.innerHeight)*0.32)+'px');
+    d.classList.add('touched');
+  }
+  d.addEventListener('pointermove',function(e){light(e.clientX,e.clientY)});
+  d.addEventListener('pointerdown',function(e){light(e.clientX,e.clientY)});
+  d.addEventListener('pointerleave',function(){r.setProperty('--r','0px')});
+  // on touch devices with no pointer yet, show a slow wandering light so the page isn't blank
+  if(window.matchMedia('(hover:none)').matches && !window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+    var t=0, wander=setInterval(function(){
+      if(d.classList.contains('touched')){clearInterval(wander);return;}
+      t+=0.02;
+      var b=d.getBoundingClientRect();
+      r.setProperty('--x',(b.width*(0.5+0.25*Math.sin(t)))+'px');
+      r.setProperty('--y',(b.height*(0.55+0.18*Math.cos(t*0.7)))+'px');
+      r.setProperty('--r','200px');
+    },40);
+  }
+  // links to a section open it
+  function openHash(){
+    var el=location.hash && document.querySelector(location.hash);
+    if(el && el.tagName==='DETAILS'){el.open=true;}
+  }
+  window.addEventListener('hashchange',openHash); openHash();
+  // one-open-at-a-time index
+  var all=document.querySelectorAll('details');
+  all.forEach(function(el){el.addEventListener('toggle',function(){
+    if(el.open) all.forEach(function(o){ if(o!==el) o.open=false; });
+  })});
+  document.getElementById('f').addEventListener('submit',function(e){
+    e.preventDefault();this.style.display='none';document.getElementById('thanks').style.display='block';
+  });
+})();
+</script>
+</body>
+</html>
