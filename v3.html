@@ -41,6 +41,19 @@
   nav ul a:hover{border-color:currentColor}
   @media(max-width:760px){nav ul{display:none}}
   body.playing nav{opacity:0;pointer-events:none}
+  @media(max-width:760px){nav ul{display:flex;gap:18px;font-size:15px}nav{padding:16px 22px}}
+  .bar2{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px var(--gutter);background:rgba(5,6,8,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--dim);transform:translateY(-100%);transition:transform .35s ease}
+  .bar2.on{transform:none}
+  body.playing .bar2{transform:translateY(-100%)}
+  .bar2 .brand{font-style:italic;font-weight:600;font-size:18px}
+  .bar2 ul{display:flex;gap:18px;list-style:none;font-style:italic;font-size:16px;align-items:center}
+  .bar2 .btn{font-size:15px;padding:8px 16px}
+  @media(max-width:560px){.bar2 ul li.hide{display:none}}
+  .skip{position:absolute;left:-999px;top:0;background:var(--paper);color:var(--black);padding:8px 14px;z-index:100}
+  .skip:focus{left:var(--gutter);top:12px}
+  .noplay .tap{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2}
+  .tap{display:none}
+  .tap span{font-style:italic;font-size:18px;padding:14px 26px;border:1.5px solid var(--paper);border-radius:999px;background:rgba(5,6,8,.5)}
 
   /* ---------- film ---------- */
   .film{position:relative;height:100svh;overflow:hidden;background:var(--black)}
@@ -48,6 +61,13 @@
   @media(max-width:640px){.film h1{font-size:clamp(64px,22vw,120px)}.film .bar{margin-top:20px;gap:14px}.film .bar p{font-size:18px}.btn{font-size:16px;padding:11px 20px}}
   .film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   body.playing .film video{object-fit:contain;position:relative;z-index:1}
+  .prog{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--paper);z-index:4;display:none}
+  body.playing .prog{display:block}
+  .hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:4;font-style:italic;font-size:18px;padding:12px 22px;border-radius:999px;background:rgba(5,6,8,.6);display:none;pointer-events:none}
+  body.playing.hinting .hint{display:block}
+  @media(orientation:portrait) and (max-width:900px){
+    body.playing .prog{left:0;top:0;bottom:auto;width:3px;height:0}
+  }
   .film .amb{position:absolute;inset:-40px;background:url("artwork.jpg") center/cover no-repeat;filter:blur(40px) brightness(.45) saturate(1.1);opacity:0;transition:opacity .8s}
   body.playing .film .amb{opacity:1}
   body.playing .film .close{z-index:95;display:inline-flex;background:rgba(5,6,8,.55);backdrop-filter:blur(6px);padding:12px 22px}
@@ -58,7 +78,7 @@
     body.playing .film .close{top:auto;bottom:max(18px,env(safe-area-inset-bottom));right:50%;transform:translateX(50%)}
   }
   body.playing .film .scrim{z-index:2}
-  .film .wash{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,6,8,.45) 0%,rgba(5,6,8,.05) 40%,rgba(5,6,8,.85) 100%);transition:opacity .8s}
+  .film .wash{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,6,8,.5) 0%,rgba(5,6,8,.08) 32%,rgba(5,6,8,.55) 62%,rgba(5,6,8,.92) 100%);transition:opacity .8s}
   .film .ui{position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(36px,6vw,72px);transition:opacity .8s}
   .film h1{font-size:clamp(72px,15vw,230px);line-height:.84;letter-spacing:-.03em;font-style:italic;font-weight:700;color:var(--paper)}
   .film h1 span{display:block}
@@ -126,6 +146,16 @@
 </head>
 <body>
 
+<a class="skip" href="#music">Skip to content</a>
+<div class="bar2" id="bar2" aria-hidden="true">
+  <a class="brand" href="#top">Becky Sikasa</a>
+  <ul>
+    <li class="hide"><a href="#about">About</a></li>
+    <li><a href="#live">Live</a></li>
+    <li class="hide"><a href="#letters">Letters</a></li>
+    <li><a class="btn fill" href="https://beckys.lnk.to/skyisclose">Listen</a></li>
+  </ul>
+</div>
 <nav>
   <a class="brand" href="#top">Becky Sikasa</a>
   <ul>
@@ -141,6 +171,7 @@
   <video id="vid" src="sky-loop.mp4" poster="artwork.jpg" autoplay muted loop playsinline preload="metadata"></video>
   <div class="wash"></div>
   <div class="scrim" id="scrim"></div>
+  <div class="tap" id="tap"><span>Tap to play</span></div>
   <div class="ui">
     <h1><span>Becky</span><span>Sikasa</span></h1>
     <div class="bar">
@@ -151,6 +182,8 @@
       </div>
     </div>
   </div>
+  <div class="prog" id="prog"></div>
+  <div class="hint" id="hint">Turn your phone sideways</div>
   <button class="btn close" id="closefilm">Back</button>
 </header>
 
@@ -228,6 +261,20 @@
   document.getElementById('closefilm').addEventListener('click',stop);
   vid.addEventListener('ended',stop);
   document.getElementById('scrim').addEventListener('click',function(){vid.paused?vid.play():vid.pause()});
+  /* progress line + rotate hint while watching */
+  var prog=document.getElementById('prog'),portraitQ=window.matchMedia('(orientation:portrait) and (max-width:900px)');
+  vid.addEventListener('timeupdate',function(){ if(!document.body.classList.contains('playing')||!vid.duration) return; var p=(vid.currentTime/vid.duration*100)+'%'; if(portraitQ.matches){prog.style.height=p;prog.style.width='3px';} else {prog.style.width=p;prog.style.height='3px';} });
+  document.getElementById('watch').addEventListener('click',function(){ if(portraitQ.matches){document.body.classList.add('hinting');setTimeout(function(){document.body.classList.remove('hinting')},2200);} if(!portraitQ.matches){vid.controls=true;} });
+  document.getElementById('closefilm').addEventListener('click',function(){vid.controls=false});
+  /* autoplay fallback */
+  var tap=document.getElementById('tap');
+  function checkAuto(){ setTimeout(function(){ if(vid.paused && !document.body.classList.contains('playing')){document.querySelector('.film').classList.add('noplay');} },1500); }
+  checkAuto();
+  tap.addEventListener('click',function(){vid.play().then(function(){document.querySelector('.film').classList.remove('noplay')}).catch(function(){});});
+  /* sticky bar after the hero */
+  var bar2=document.getElementById('bar2'),hero=document.querySelector('.film');
+  function onS(){ bar2.classList.toggle('on', window.scrollY>hero.offsetHeight-60); }
+  window.addEventListener('scroll',onS,{passive:true}); onS();
   document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();this.style.display='none';document.getElementById('thanks').style.display='block'});
 })();
 </script>
