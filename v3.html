@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Becky Sikasa — Sky Is Close</title>
+<meta name="description" content="Becky Sikasa. Sky Is Close, out now.">
+<meta property="og:title" content="Becky Sikasa — Sky Is Close">
+<meta property="og:image" content="artwork.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#4180B6; --light:#B0CFEC; --navy:#072846; --paper:#EFE6D6; --black:#050608;
+    --serif:"EB Garamond", Garamond, "Times New Roman", serif;
+    --gutter:clamp(22px,6vw,110px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--serif);font-size:20px;line-height:1.5;color:var(--paper);background:var(--black);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:80;opacity:.14;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+  a{color:inherit;text-decoration:none}
+  a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+  i{font-style:italic}
+  .btn{display:inline-flex;align-items:center;gap:10px;font:inherit;font-size:18px;font-weight:500;font-style:italic;padding:12px 24px;border:1.5px solid currentColor;border-radius:999px;background:transparent;color:inherit;cursor:pointer;transition:background .25s,color .25s}
+  .btn:hover{background:var(--paper);color:var(--black);border-color:var(--paper)}
+  .btn.fill{background:var(--paper);color:var(--black);border-color:var(--paper)}
+  .btn.fill:hover{background:#fff}
+
+  /* ---------- custom cursor ---------- */
+  @media(hover:hover){
+    body{cursor:none}
+    a,button,summary{cursor:none}
+    .cur{position:fixed;left:0;top:0;width:14px;height:14px;border-radius:50%;background:var(--paper);mix-blend-mode:difference;pointer-events:none;z-index:99;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s}
+    body.hot .cur{width:64px;height:64px;background:var(--light)}
+    .curlabel{position:fixed;left:0;top:0;transform:translate(-50%,-50%);pointer-events:none;z-index:100;font-size:13px;font-style:italic;color:var(--black);opacity:0;transition:opacity .2s}
+    body.hot .curlabel{opacity:1}
+  }
+  @media(hover:none){.cur,.curlabel{display:none}}
+
+  /* ---------- intro ---------- */
+  .intro{position:fixed;inset:0;z-index:90;background:var(--black);display:flex;align-items:center;justify-content:center;transition:opacity 1s ease,visibility 1s}
+  .intro.gone{opacity:0;visibility:hidden}
+  .intro h2{font-size:clamp(40px,8vw,120px);font-style:italic;font-weight:600;letter-spacing:-.02em;color:var(--paper)}
+  .intro h2 span{display:inline-block;opacity:0;transform:translateY(.4em);animation:letter 1.2s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes letter{to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){.intro{display:none}}
+
+  /* ---------- nav ---------- */
+  nav{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;justify-content:space-between;align-items:center;padding:20px var(--gutter);font-style:italic;font-size:17px;mix-blend-mode:difference;color:#fff}
+  nav .brand{font-weight:600;font-size:19px}
+  nav ul{display:flex;gap:26px;list-style:none}
+  nav ul a{border-bottom:1px solid transparent}
+  nav ul a:hover{border-color:currentColor}
+  @media(max-width:760px){nav ul{display:none}}
+
+  /* ---------- hero / film ---------- */
+  .film{position:relative;height:100svh;overflow:hidden;background:var(--black)}
+  .film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.9) contrast(1.05);transition:filter .8s}
+  .film.playing video{filter:none}
+  .film .wash{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,6,8,.35) 0%,rgba(5,6,8,0) 35%,rgba(5,6,8,.75) 100%);transition:opacity .8s}
+  .film.playing .wash{opacity:0}
+  .film .name{position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(96px,14vw,160px);font-size:clamp(70px,15vw,230px);line-height:.84;letter-spacing:-.03em;font-style:italic;font-weight:700;color:var(--paper);mix-blend-mode:difference;pointer-events:none;transition:opacity .8s}
+  .film.playing .name{opacity:0}
+  .name span{display:block}
+  .name b{display:inline-block;font-weight:inherit;transition:transform .35s ease}
+  .film .bar{position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(32px,5vw,64px);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;transition:opacity .8s}
+  .film .bar p{font-size:clamp(20px,2.3vw,28px);font-style:italic}
+  .film.playing .bar p,.film.playing .bar .listen{opacity:0;pointer-events:none}
+  .film .bar .r{display:flex;gap:10px;flex-wrap:wrap}
+  .film .scrim{position:absolute;inset:0;cursor:pointer}
+  .film:not(.playing) .scrim{display:none}
+  .film .close{position:absolute;top:22px;right:var(--gutter);z-index:3;display:none}
+  .film.playing .close{display:inline-flex}
+
+  /* ---------- strip (horizontal scroll) ---------- */
+  .strip{position:relative;height:320vh}
+  .strip .sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center}
+  .strip .track{display:flex;gap:clamp(24px,4vw,64px);padding:0 var(--gutter);will-change:transform}
+  .card{flex:0 0 auto;height:min(70svh,720px);aspect-ratio:4/5;position:relative;overflow:hidden;background:#111}
+  .card.wide{aspect-ratio:3/2}
+  .card.sq{aspect-ratio:1}
+  .card img{width:100%;height:100%;object-fit:cover;filter:saturate(.9)}
+  .card.text{background:transparent;display:flex;flex-direction:column;justify-content:center;aspect-ratio:auto;width:min(80vw,560px)}
+  .card.text p{font-size:clamp(26px,3.2vw,44px);line-height:1.15;font-style:italic;letter-spacing:-.01em}
+  .card.text cite{display:block;margin-top:20px;font-style:normal;font-size:17px;opacity:.65}
+  .card.title{background:transparent;display:flex;align-items:center;aspect-ratio:auto;width:auto;padding-right:10vw}
+  .card.title h2{font-size:clamp(70px,14vw,220px);line-height:.85;letter-spacing:-.03em;font-style:italic;font-weight:700;white-space:nowrap}
+  @media(prefers-reduced-motion:reduce){.strip{height:auto}.strip .sticky{position:static;height:auto;overflow-x:auto}.strip .track{transform:none!important;padding:80px var(--gutter)}}
+
+  /* ---------- about ---------- */
+  .about{padding:clamp(100px,14vw,200px) 0;background:var(--black)}
+  .about .wrap{max-width:1240px;margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,120px);align-items:start}
+  @media(max-width:860px){.about .wrap{grid-template-columns:1fr}}
+  .about h2{font-size:clamp(56px,9vw,140px);line-height:.9;font-style:italic;font-weight:700;letter-spacing:-.025em;position:sticky;top:120px;color:var(--black);text-shadow:1px 1px 0 rgba(239,230,214,.22),-1px -1px 0 rgba(0,0,0,.9)}
+  .about p{font-size:clamp(20px,1.9vw,24px);line-height:1.5;max-width:46ch;margin-bottom:1em;opacity:0;transform:translateY(16px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+  .about p.in{opacity:1;transform:none}
+  .about .btn{margin-top:16px}
+
+  /* ---------- live ---------- */
+  .live{padding:clamp(80px,12vw,180px) 0}
+  .live .wrap{max-width:1240px;margin:0 auto;padding:0 var(--gutter)}
+  .live h2{font-size:clamp(56px,9vw,140px);line-height:.9;font-style:italic;font-weight:700;letter-spacing:-.025em;margin-bottom:clamp(32px,5vw,64px)}
+  .dates{list-style:none;border-top:1px solid rgba(239,230,214,.22)}
+  .dates li{display:grid;grid-template-columns:150px 1fr auto;gap:24px;align-items:center;padding:26px 0;border-bottom:1px solid rgba(239,230,214,.22);opacity:0;transform:translateX(-24px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .dates li.in{opacity:1;transform:none}
+  @media(max-width:640px){.dates li{grid-template-columns:1fr;gap:8px}}
+  .dates .d{opacity:.75}
+  .dates .v{font-size:clamp(28px,3.6vw,48px);font-style:italic;line-height:1.02}
+  .dates .v span{display:block;font-size:18px;font-style:normal;opacity:.7;margin-top:4px}
+  .dates .soldout{opacity:.5;font-style:italic}
+
+  /* ---------- letters ---------- */
+  .letters{padding:clamp(80px,12vw,180px) 0}
+  .letters .wrap{max-width:1240px;margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,120px);align-items:end}
+  @media(max-width:860px){.letters .wrap{grid-template-columns:1fr}}
+  .letters h2{font-size:clamp(48px,8vw,120px);line-height:.9;font-style:italic;font-weight:700;letter-spacing:-.025em}
+  .letters p{font-style:italic;font-size:clamp(20px,2vw,24px);margin-bottom:22px}
+  .letters form{display:flex;max-width:520px;border:1.5px solid var(--paper);border-radius:999px;overflow:hidden}
+  .letters input{flex:1;min-width:0;font:inherit;font-style:italic;font-size:19px;padding:14px 22px;background:transparent;border:0;color:var(--paper);outline:none}
+  .letters input::placeholder{color:rgba(239,230,214,.45)}
+  .letters button{font:inherit;font-style:italic;font-weight:500;font-size:18px;padding:14px 26px;background:var(--paper);color:var(--black);border:0;cursor:pointer}
+  .thanks{display:none;font-size:24px;font-style:italic}
+
+  /* ---------- marquee ---------- */
+  .marquee{overflow:hidden;border-top:1px solid rgba(239,230,214,.18);border-bottom:1px solid rgba(239,230,214,.18);padding:18px 0;white-space:nowrap}
+  .marquee div{display:inline-block;font-size:clamp(28px,4vw,56px);font-style:italic;animation:run 28s linear infinite}
+  .marquee span{padding:0 1.2em}
+  .marquee:hover div{animation-play-state:paused}
+  @keyframes run{to{transform:translateX(-50%)}}
+  @media(prefers-reduced-motion:reduce){.marquee div{animation:none}}
+
+  footer{padding:48px var(--gutter) 44px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;align-items:flex-end}
+  footer ul{display:flex;gap:24px;list-style:none;flex-wrap:wrap;font-size:18px;font-style:italic}
+  footer ul a{border-bottom:1px solid transparent}
+  footer ul a:hover{border-color:currentColor}
+  footer .fine{font-size:15px;opacity:.6}
+</style>
+</head>
+<body>
+
+<div class="cur" aria-hidden="true"></div>
+<div class="curlabel" aria-hidden="true"></div>
+
+<div class="intro" id="intro" aria-hidden="true"><h2 id="introtext">Sky Is Close</h2></div>
+
+<nav>
+  <a class="brand" href="#top">Becky Sikasa</a>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#live">Live</a></li>
+    <li><a href="#letters">Letters</a></li>
+    <li><a href="https://beckys.lnk.to/skyisclose">Listen</a></li>
+  </ul>
+</nav>
+
+<header class="film" id="top">
+  <video id="vid" src="sky-film.mp4" poster="artwork.jpg" autoplay muted loop playsinline preload="metadata"></video>
+  <div class="wash"></div>
+  <div class="scrim" id="scrim" title="Pause"></div>
+  <h1 class="name" id="name"><span data-w="Becky"></span><span data-w="Sikasa"></span></h1>
+  <div class="bar">
+    <p><i>Sky Is Close</i> — out now</p>
+    <div class="r">
+      <a class="btn listen fill" href="https://beckys.lnk.to/skyisclose">Listen</a>
+      <button class="btn" id="watch" data-cur="play">Watch the film, with sound</button>
+    </div>
+  </div>
+  <button class="btn close" id="closefilm">Back</button>
+</header>
+
+<section class="strip" id="strip" aria-label="Pictures">
+  <div class="sticky">
+    <div class="track" id="track">
+      <div class="card title"><h2>Pictures</h2></div>
+      <div class="card sq"><img src="artwork.jpg" alt="Sky Is Close artwork"></div>
+      <div class="card text"><p>Written on my upright piano, mostly recorded in Cologne and finished in Edinburgh at the end of summer.</p><cite>Becky, on Sky Is Close</cite></div>
+      <div class="card wide"><img src="press.jpg" alt="Becky Sikasa"></div>
+      <div class="card text"><p>&ldquo;She&rsquo;s phenomenal. With a voice like that, with a songwriting capacity like that, this is a real artist.&rdquo;</p><cite>Annie Lennox</cite></div>
+      <div class="card"><img src="press.jpg" alt="" style="object-position:62% center"></div>
+      <div class="card text"><p>To live in fear is not an option.</p><cite>Sky Is Close</cite></div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <h2>About</h2>
+    <div>
+      <p>Becky Sikasa is a Glasgow-based, German singer-songwriter, producer and multi-instrumentalist. Her music brings together Kenyan, Swiss and German roots and a Glasgow home: rich, introspective songs that sit between neo-soul, alternative R&amp;B and indie-pop.</p>
+      <p>Both of her EPs — <i>Twelve Wooden Boxes</i> and <i>The Writings and the Pictures and the Song</i> — were shortlisted for the Scottish Album of the Year Award. She was named BBC Introducing Scottish Artist of the Year 2025, has toured with Nile Rodgers, and has shared stages with Sam Smith, Joy Crookes, corto.alto and The Crane Wives.</p>
+      <p>Annie Lennox personally invited her to play the main stage at Wilderness Festival, and has championed her ever since.</p>
+      <a class="btn" href="https://drive.google.com/drive/folders/1reiI4MJJ3e86O9XnI_Rve-txaS6Ky0FH">Press pack</a>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true"><div><span>Sky Is Close</span>·<span>out now</span>·<span>Sky Is Close</span>·<span>out now</span>·<span>Sky Is Close</span>·<span>out now</span>·<span>Sky Is Close</span>·<span>out now</span>·</div></div>
+
+<section class="live" id="live">
+  <div class="wrap">
+    <h2>Live</h2>
+    <ul class="dates">
+      <li><span class="d">Sat 7 Nov</span><span class="v">Letham Village Hall<span>Letham Nights, Fife</span></span><span class="soldout">Sold out</span></li>
+      <li><span class="d">Mon 9 Nov</span><span class="v">The Tunnels<span>Aberdeen</span></span><a class="btn" href="https://www.seetickets.com/event/becky-sikasa/the-tunnels/3612073">Tickets</a></li>
+      <li><span class="d">Tue 10 Nov</span><span class="v">The Caves<span>Edinburgh</span></span><a class="btn" href="https://432p.seetickets.com/event/becky-sikasa/the-caves/3612113">Tickets</a></li>
+      <li><span class="d">Thu 12 Nov</span><span class="v">The Rum Shack<span>Glasgow</span></span><a class="btn" href="https://www.seetickets.com/event/becky-sikasa/the-rum-shack/3635397">Tickets</a></li>
+      <li><span class="d">Tue 8 Dec</span><span class="v">Kulturkirche<span>Cologne, Germany</span></span><a class="btn" href="#">Tickets</a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="letters" id="letters">
+  <div class="wrap">
+    <h2>Letters</h2>
+    <div>
+      <p>Notes from Becky, now and then.</p>
+      <form id="f"><input type="email" required placeholder="Your email" aria-label="Email address"><button type="submit">Join</button></form>
+      <div class="thanks" id="thanks">Thank you. Talk soon.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <ul>
+    <li><a href="https://www.instagram.com/beckysikasa/">Instagram</a></li>
+    <li><a href="https://www.tiktok.com/@beckysikasa">TikTok</a></li>
+    <li><a href="https://open.spotify.com/artist/3UqXMAMPI53itEWm6SMaBZ">Spotify</a></li>
+    <li><a href="https://youtu.be/OCZmGiJyq0I">YouTube</a></li>
+  </ul>
+  <div class="fine">© 2026 Becky Sikasa</div>
+</footer>
+
+<script>
+(function(){
+  var rm=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* intro: letters in, then lift */
+  var it=document.getElementById('introtext'), intro=document.getElementById('intro');
+  if(!rm){
+    var txt=it.textContent; it.textContent='';
+    txt.split('').forEach(function(ch,i){var s=document.createElement('span');s.textContent=ch===' '?' ':ch;s.style.animationDelay=(0.15+i*0.07)+'s';it.appendChild(s);});
+    setTimeout(function(){intro.classList.add('gone')},2600);
+    intro.addEventListener('click',function(){intro.classList.add('gone')});
+  } else intro.classList.add('gone');
+
+  /* name: per-letter lean toward the pointer */
+  var name=document.getElementById('name');
+  name.querySelectorAll('span').forEach(function(sp){sp.dataset.w.split('').forEach(function(ch){var b=document.createElement('b');b.textContent=ch;sp.appendChild(b)})});
+  var letters=name.querySelectorAll('b');
+  if(!rm) window.addEventListener('pointermove',function(e){
+    letters.forEach(function(b){
+      var r=b.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+      var dx=e.clientX-cx,dy=e.clientY-cy,d=Math.hypot(dx,dy),m=Math.max(0,1-d/700);
+      b.style.transform='translate('+(dx/d*14*m||0)+'px,'+(dy/d*14*m||0)+'px) rotate('+(dx/d*4*m||0)+'deg)';
+    });
+  },{passive:true});
+
+  /* film: watch with sound */
+  var film=document.getElementById('top'),vid=document.getElementById('vid'),watch=document.getElementById('watch'),closeb=document.getElementById('closefilm');
+  function play(){vid.currentTime=0;vid.muted=false;vid.loop=false;film.classList.add('playing');vid.play().catch(function(){});}
+  function stop(){vid.muted=true;vid.loop=true;film.classList.remove('playing');vid.play().catch(function(){});}
+  watch.addEventListener('click',play);
+  closeb.addEventListener('click',stop);
+  vid.addEventListener('ended',stop);
+  document.getElementById('scrim').addEventListener('click',function(){vid.paused?vid.play():vid.pause()});
+
+  /* strip: horizontal on scroll */
+  var strip=document.getElementById('strip'),track=document.getElementById('track');
+  function onScroll(){
+    if(rm) return;
+    var r=strip.getBoundingClientRect(),h=strip.offsetHeight-window.innerHeight;
+    var p=Math.min(1,Math.max(0,-r.top/h));
+    var max=track.scrollWidth-window.innerWidth+parseFloat(getComputedStyle(track).paddingLeft);
+    track.style.transform='translate3d('+(-p*max)+'px,0,0)';
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});window.addEventListener('resize',onScroll);onScroll();
+
+  /* reveals */
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.2});
+  document.querySelectorAll('.about p,.dates li').forEach(function(el){io.observe(el)});
+
+  /* cursor */
+  var cur=document.querySelector('.cur'),lab=document.querySelector('.curlabel');
+  window.addEventListener('pointermove',function(e){cur.style.transform='translate('+(e.clientX-7)+'px,'+(e.clientY-7)+'px)';lab.style.left=e.clientX+'px';lab.style.top=e.clientY+'px';
+    var t=e.target.closest('a,button'); if(t){document.body.classList.add('hot');lab.textContent=t.dataset.cur||t.textContent.trim().split(',')[0];} else document.body.classList.remove('hot');},{passive:true});
+
+  document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();this.style.display='none';document.getElementById('thanks').style.display='block'});
+})();
+</script>
+</body>
+</html>
