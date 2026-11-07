@@ -34,7 +34,7 @@
   .btn.fill:hover{background:#fff;border-color:#fff}
   .btns{display:flex;gap:12px;flex-wrap:wrap}
 
-  nav{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;justify-content:space-between;align-items:center;padding:20px var(--gutter);font-style:italic;font-size:17px;color:var(--paper);transition:opacity .6s}
+  nav{position:absolute;top:0;left:0;right:0;z-index:70;display:flex;justify-content:space-between;align-items:center;padding:20px var(--gutter);font-style:italic;font-size:17px;color:var(--paper);transition:opacity .6s}
   nav .brand{font-weight:600;font-size:19px}
   nav ul{display:flex;gap:26px;list-style:none}
   nav ul a{border-bottom:1px solid transparent}
@@ -44,6 +44,8 @@
 
   /* ---------- film ---------- */
   .film{position:relative;height:100svh;overflow:hidden;background:var(--black)}
+  .film .ui h1{margin-bottom:0}
+  @media(max-width:640px){.film h1{font-size:clamp(64px,22vw,120px)}.film .bar{margin-top:20px;gap:14px}.film .bar p{font-size:18px}.btn{font-size:16px;padding:11px 20px}}
   .film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   body.playing .film video{object-fit:contain}
   .film .wash{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,6,8,.45) 0%,rgba(5,6,8,.05) 40%,rgba(5,6,8,.85) 100%);transition:opacity .8s}
