@@ -50,7 +50,13 @@
   body.playing .film video{object-fit:contain;position:relative;z-index:1}
   .film .amb{position:absolute;inset:-40px;background:url("artwork.jpg") center/cover no-repeat;filter:blur(40px) brightness(.45) saturate(1.1);opacity:0;transition:opacity .8s}
   body.playing .film .amb{opacity:1}
-  body.playing .film .close{z-index:3}
+  body.playing .film .close{z-index:3;background:rgba(5,6,8,.55);backdrop-filter:blur(6px);padding:12px 22px}
+  body.playing .film .close::before{content:"\2190\00a0"}
+  @media(orientation:portrait) and (max-width:900px){
+    body.playing .film{position:fixed;inset:0;z-index:90;height:100dvh}
+    body.playing .film video{position:absolute;left:50%;top:50%;width:100dvh;height:100dvw;transform:translate(-50%,-50%) rotate(90deg);object-fit:cover}
+    body.playing .film .close{top:auto;bottom:max(18px,env(safe-area-inset-bottom));right:50%;transform:translateX(50%)}
+  }
   body.playing .film .scrim{z-index:2}
   .film .wash{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,6,8,.45) 0%,rgba(5,6,8,.05) 40%,rgba(5,6,8,.85) 100%);transition:opacity .8s}
   .film .ui{position:absolute;left:var(--gutter);right:var(--gutter);bottom:clamp(36px,6vw,72px);transition:opacity .8s}
@@ -213,15 +219,11 @@
   var LOOP=PORTRAIT?'sky-vertical.mp4':'sky-loop.mp4',FILM='sky-film.mp4';
   if(PORTRAIT){vid.src=LOOP;vid.play().catch(function(){});}
   function play(){vid.src=FILM;vid.muted=false;vid.loop=false;document.body.classList.add('playing');window.scrollTo({top:0});
-    var p=vid.play();
-    if(window.matchMedia('(max-width:900px)').matches){
-      var go=function(){ if(vid.webkitEnterFullscreen){vid.webkitEnterFullscreen();} else if(vid.requestFullscreen){vid.requestFullscreen().catch(function(){});} };
-      if(p&&p.then){p.then(go).catch(go);} else go();
-    }
+    vid.play().catch(function(){});
+    document.documentElement.style.overflow='hidden';
   }
-  vid.addEventListener('webkitendfullscreen',stop);
-  document.addEventListener('fullscreenchange',function(){ if(!document.fullscreenElement && document.body.classList.contains('playing')) stop(); });
-  function stop(){vid.src=LOOP;vid.muted=true;vid.loop=true;document.body.classList.remove('playing');vid.play().catch(function(){});}
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && document.body.classList.contains('playing')) stop(); });
+  function stop(){vid.src=LOOP;vid.muted=true;vid.loop=true;document.body.classList.remove('playing');document.documentElement.style.overflow='';vid.play().catch(function(){});}
   document.getElementById('watch').addEventListener('click',play);
   document.getElementById('closefilm').addEventListener('click',stop);
   vid.addEventListener('ended',stop);
