@@ -142,6 +142,10 @@
   footer ul a{border-bottom:1px solid transparent}
   footer ul a:hover{border-color:currentColor}
   footer .fine{font-size:15px;opacity:.6}
+  .embed{max-width:560px;border:1px solid var(--dim);border-radius:18px;overflow:hidden;background:#fff}
+  .embed iframe{display:block;width:100%;height:560px;border:0}
+  .alt{font-size:16px;opacity:.7;margin-top:12px}
+  .alt a{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -229,8 +233,8 @@
     <h2>Letters</h2>
     <div>
       <p>Notes from Becky.</p>
-      <form id="f"><input type="email" required placeholder="Your email" aria-label="Email address"><button type="submit">Join</button></form>
-      <div class="thanks" id="thanks">Thank you. Talk soon.</div>
+      <div class="embed"><iframe src="https://beckysikasa.hq.fan/mailinglist" title="Join the Becky Sikasa mailing list" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+      <p class="alt"><a href="https://beckysikasa.hq.fan/mailinglist">Open the sign-up in a new tab</a></p>
     </div>
   </div>
 </section>
@@ -275,7 +279,6 @@
   var bar2=document.getElementById('bar2'),hero=document.querySelector('.film');
   function onS(){ bar2.classList.toggle('on', window.scrollY>hero.offsetHeight-60); }
   window.addEventListener('scroll',onS,{passive:true}); onS();
-  document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();this.style.display='none';document.getElementById('thanks').style.display='block'});
 })();
 </script>
 </body>
