@@ -34,7 +34,7 @@
   .btn.fill:hover{background:#fff;border-color:#fff}
   .btns{display:flex;gap:12px;flex-wrap:wrap}
 
-  nav{position:absolute;top:0;left:0;right:0;z-index:70;display:flex;justify-content:space-between;align-items:center;padding:20px var(--gutter);font-style:italic;font-size:17px;color:var(--paper);transition:opacity .6s}
+  nav{display:none;position:absolute;top:0;left:0;right:0;z-index:70;display:flex;justify-content:space-between;align-items:center;padding:20px var(--gutter);font-style:italic;font-size:17px;color:var(--paper);transition:opacity .6s}
   nav .brand{font-weight:600;font-size:19px}
   nav ul{display:flex;gap:26px;list-style:none}
   nav ul a{border-bottom:1px solid transparent}
@@ -274,7 +274,7 @@
   tap.addEventListener('click',function(){vid.play().then(function(){document.querySelector('.film').classList.remove('noplay')}).catch(function(){});});
   /* sticky bar after the hero */
   var bar2=document.getElementById('bar2'),hero=document.querySelector('.film');
-  function onS(){ bar2.classList.toggle('on', window.scrollY>hero.offsetHeight-60); }
+  function onS(){ bar2.classList.toggle('on', window.scrollY>40); }
   window.addEventListener('scroll',onS,{passive:true}); onS();
 })();
 </script>
