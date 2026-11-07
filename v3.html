@@ -204,7 +204,9 @@
 <script>
 (function(){
   var vid=document.getElementById('vid');
-  var LOOP='sky-loop.mp4',FILM='sky-film.mp4';
+  var PORTRAIT=window.matchMedia('(orientation:portrait) and (max-width:900px)').matches;
+  var LOOP=PORTRAIT?'sky-vertical.mp4':'sky-loop.mp4',FILM='sky-film.mp4';
+  if(PORTRAIT){vid.src=LOOP;vid.play().catch(function(){});}
   function play(){vid.src=FILM;vid.muted=false;vid.loop=false;document.body.classList.add('playing');window.scrollTo({top:0});vid.play().catch(function(){});}
   function stop(){vid.src=LOOP;vid.muted=true;vid.loop=true;document.body.classList.remove('playing');vid.play().catch(function(){});}
   document.getElementById('watch').addEventListener('click',play);
