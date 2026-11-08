@@ -117,7 +117,7 @@
   .about .quote cite{display:block;font-style:normal;font-size:17px;opacity:.7;margin-top:12px}
 
   /* ---------- live ---------- */
-  .live{padding:clamp(90px,13vw,190px) 0}
+  .live{padding:clamp(90px,13vw,190px) 0 clamp(50px,7vw,100px)}
   .dates{list-style:none;border-top:1px solid var(--dim)}
   .dates li{display:grid;grid-template-columns:150px 1fr auto;gap:24px;align-items:center;padding:26px 0;border-bottom:1px solid var(--dim)}
   @media(max-width:640px){.dates li{grid-template-columns:1fr;gap:8px}}
@@ -127,8 +127,8 @@
   .dates .soldout{opacity:.5;font-style:italic}
 
   /* ---------- letters ---------- */
-  .letters{padding:0 0 clamp(90px,13vw,190px)}
-  .letters .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,8vw,120px);align-items:end}
+  .letters{padding:clamp(40px,6vw,90px) 0 clamp(80px,10vw,140px)}
+  .letters .wrap{display:grid;grid-template-columns:auto 1fr;gap:clamp(40px,7vw,100px);align-items:center}
   @media(max-width:860px){.letters .wrap{grid-template-columns:1fr}}
   .letters h2{margin-bottom:0}
   .letters p{font-style:italic;font-size:clamp(20px,2vw,24px);margin-bottom:22px}
