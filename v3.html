@@ -43,12 +43,12 @@
   @media(max-width:760px){nav ul{display:none}}
   body.playing nav{opacity:0;pointer-events:none}
   @media(max-width:760px){nav ul{display:flex;gap:18px;font-size:15px}nav{padding:16px 22px}}
-  .bar2{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px var(--gutter);background:rgba(5,6,8,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--dim);transform:translateY(-100%);transition:transform .35s ease}
+  .bar2{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px var(--gutter);background:rgba(5,6,8,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--dim);transform:translateY(-100%);transition:transform .35s ease}
   .bar2.on{transform:none}
   body.playing .bar2{transform:translateY(-100%)}
-  .bar2 .brand{font-style:italic;font-weight:600;font-size:18px}
-  .bar2 ul{display:flex;gap:18px;list-style:none;font-style:italic;font-size:16px;align-items:center}
-  .bar2 .btn{font-size:15px;padding:8px 16px}
+  .bar2 .brand{font-style:italic;font-weight:600;font-size:22px}
+  .bar2 ul{display:flex;gap:22px;list-style:none;font-style:italic;font-size:20px;align-items:center}
+  .bar2 .btn{font-size:18px;padding:10px 20px}
   @media(max-width:560px){.bar2 ul li.hide{display:none}}
   .skip{position:absolute;left:-999px;top:0;background:var(--paper);color:var(--black);padding:8px 14px;z-index:100}
   .skip:focus{left:var(--gutter);top:12px}
@@ -103,7 +103,7 @@
   .single .wrap{position:relative;width:100%;padding-top:clamp(80px,12vw,160px);padding-bottom:clamp(48px,7vw,96px)}
   .single .kicker{font-style:italic;opacity:.8;margin-bottom:10px}
   .single h2{margin-bottom:28px}
-  .single blockquote{font-size:clamp(20px,2vw,25px);line-height:1.4;font-style:italic;max-width:36ch;margin:0 0 32px;opacity:.9}
+  .single blockquote{font-size:clamp(22px,2.2vw,28px);line-height:1.4;font-style:italic;max-width:36ch;margin:0 0 32px;opacity:.9}
   .single blockquote cite{display:block;font-style:normal;font-size:17px;opacity:.7;margin-top:10px}
 
   /* ---------- about ---------- */
@@ -112,8 +112,8 @@
   .about .pic{background:url("press.jpg") 62% center/cover no-repeat;min-height:70vw;filter:saturate(.9)}
   @media(min-width:901px){.about .pic{min-height:0}}
   .about .txt{padding:clamp(72px,9vw,140px) var(--gutter);display:flex;flex-direction:column;justify-content:center}
-  .about p{font-size:clamp(20px,1.9vw,24px);line-height:1.5;max-width:44ch;margin-bottom:1.1em}
-  .about .quote{font-size:clamp(24px,2.5vw,34px);line-height:1.22;font-style:italic;max-width:28ch;margin:24px 0 36px}
+  .about p{font-size:clamp(22px,2.1vw,28px);line-height:1.5;max-width:42ch;margin-bottom:1.1em}
+  .about .quote{font-size:clamp(27px,2.8vw,38px);line-height:1.22;font-style:italic;max-width:28ch;margin:24px 0 36px}
   .about .quote cite{display:block;font-style:normal;font-size:17px;opacity:.7;margin-top:12px}
 
   /* ---------- live ---------- */
