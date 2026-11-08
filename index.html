@@ -144,9 +144,6 @@
   footer ul a:hover{border-color:currentColor}
   footer .fine{font-size:15px;opacity:.6}
   .alt{font-size:16px;opacity:.65;margin-top:16px;max-width:36ch}
-  .embed{max-width:480px;margin-left:-16px}
-  .embed iframe{display:block;width:100%;height:460px;filter:invert(1) saturate(.55) brightness(.98)}
-  .alt a{text-decoration:underline}
   @media(max-width:900px){
     .single{min-height:0}
     .single .art{background-position:center 40%}
@@ -154,6 +151,17 @@
     .about .txt{padding-bottom:40px}
     .live{padding-top:48px}
   }
+  .sr{position:absolute;left:-9999px}
+  .join{max-width:520px}
+  .join .field{display:flex;border:1.5px solid var(--paper);border-radius:999px;overflow:hidden}
+  .join input{flex:1;min-width:0;font:inherit;font-style:italic;font-size:19px;padding:14px 22px;background:transparent;border:0;color:var(--paper);outline:none}
+  .join input::placeholder{color:rgba(239,230,214,.5)}
+  .join button{font:inherit;font-style:italic;font-weight:500;font-size:18px;padding:14px 28px;background:var(--paper);color:var(--black);border:0;cursor:pointer}
+  .join button:disabled{opacity:.6;cursor:default}
+  .join .small{font-size:16px;opacity:.65;margin-top:14px;max-width:40ch}
+  .join .small a{text-decoration:underline}
+  .join .msg{font-style:italic;font-size:20px;margin-top:14px;min-height:1.4em}
+  .join.done .field,.join.done .small{display:none}
 </style>
 </head>
 <body>
@@ -238,8 +246,16 @@
   <div class="wrap">
     <h2>Letters</h2>
     <div>
-      <div class="embed"><iframe width="480" height="460" src="https://beckysikasa.hq.fan/Website?embed=1&amp;look=stripped&amp;referrer=website" title="Sign Up" frameborder="0" loading="lazy" style="max-width: 100%; border: 0; color-scheme: normal;" allow="clipboard-write; geolocation; web-share; fullscreen" sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe></div>
-      <p class="alt">Trouble with the form? <a href="https://beckysikasa.hq.fan/mailinglist" target="_blank" rel="noopener">Open it in a new tab</a>.</p>
+      <form class="join" id="join" novalidate>
+        <label class="sr" for="join-email">Email address</label>
+        <div class="field">
+          <input id="join-email" type="email" name="email" autocomplete="email" inputmode="email" placeholder="Your email" required>
+          <button type="submit">Join</button>
+        </div>
+        <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+        <p class="small">News about music, shows and merch, from Becky. Unsubscribe any time. <a href="privacy.html">Privacy</a>.</p>
+        <p class="msg" id="join-msg" aria-live="polite"></p>
+      </form>
     </div>
   </div>
 </section>
@@ -280,6 +296,22 @@
   function checkAuto(){ setTimeout(function(){ if(vid.paused && !document.body.classList.contains('playing')){document.querySelector('.film').classList.add('noplay');} },1500); }
   checkAuto();
   tap.addEventListener('click',function(){vid.play().then(function(){document.querySelector('.film').classList.remove('noplay')}).catch(function(){});});
+
+  /* mailing list → Cloudflare Worker → Openstage */
+  var JOIN_URL='https://becky-join.sparkling-surf-de93.workers.dev';
+  var jf=document.getElementById('join'),jm=document.getElementById('join-msg');
+  if(jf){jf.addEventListener('submit',async function(e){
+    e.preventDefault();
+    var email=jf.email.value.trim(),btn=jf.querySelector('button');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){jm.textContent='That email doesn\u2019t look right.';return;}
+    btn.disabled=true;jm.textContent='One moment\u2026';
+    try{
+      var r=await fetch(JOIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,website:jf.website.value,page:location.href,locale:navigator.language})});
+      var d=await r.json();
+      if(d.ok){jf.classList.add('done');jm.textContent='You\u2019re on the list. Thank you.';}
+      else{jm.textContent=d.error||'Something went wrong. Please try again.';btn.disabled=false;}
+    }catch(x){jm.textContent='Couldn\u2019t reach the list just now. Please try again.';btn.disabled=false;}
+  });}
   /* sticky bar after the hero */
   var bar2=document.getElementById('bar2'),hero=document.querySelector('.film');
   function onS(){ bar2.classList.toggle('on', window.scrollY>40); }
