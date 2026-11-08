@@ -59,7 +59,7 @@
   /* ---------- film ---------- */
   .film{position:relative;height:100svh;overflow:hidden;background:var(--black)}
   .film .ui h1{margin-bottom:0}
-  @media(max-width:640px){.film h1{font-size:clamp(64px,22vw,120px)}.film .bar{margin-top:20px;gap:14px}.film .bar p{font-size:18px}.btn{font-size:16px;padding:11px 20px}}
+  @media(max-width:640px){.film h1{font-size:clamp(64px,22vw,120px)}.film .bar{margin-top:20px;gap:14px}.film .bar p{font-size:22px}}
   .film video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   body.playing .film video{object-fit:contain;position:relative;z-index:1}
   .prog{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--paper);z-index:4;display:none}
@@ -144,6 +144,22 @@
   footer ul a:hover{border-color:currentColor}
   footer .fine{font-size:15px;opacity:.6}
   .alt{font-size:16px;opacity:.65;margin-top:16px;max-width:36ch}
+  @media(max-width:760px){
+    body{font-size:22px}
+    .bar2{padding:16px 22px}
+    .bar2 .brand{font-size:26px}
+    .bar2 ul{gap:20px;font-size:23px}
+    .bar2 .btn{font-size:20px;padding:11px 22px}
+    .about p{font-size:25px;line-height:1.45}
+    .about .quote{font-size:30px}
+    .about .quote cite,.single blockquote cite{font-size:19px}
+    .single blockquote{font-size:24px}
+    .single .kicker,.dates .d,.dates .v span,.alt{font-size:20px}
+    .dates .v{font-size:32px}
+    .btn{font-size:20px;padding:13px 24px}
+    .film .bar p{font-size:22px}
+    footer ul{font-size:20px}
+  }
 </style>
 </head>
 <body>
